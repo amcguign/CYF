@@ -12,16 +12,24 @@ var ws = new WebSocket('ws://cyf.joocy.com:5001');
 
 ws.onmessage = function (event) {  
     var card = new UI.Card();
+    var message = JSON.parse(event.data);
     card.title('Data from server');
     card.body(event.data);
     card.show();
-    Vibe.vibrate('long');    
+    if (message.direction == "forward")
+    {
+        Vibe.vibrate('double');            
+    }
+    else
+    {
+        Vibe.vibrate('long');            
+    }  
 };
 
 var reg_message = {};
 
 var main = new UI.Card({
-  title: 'Pebble.js',
+  title: 'CYF',
   icon: 'images/menu_icon.png',
   subtitle: 'Which wrist?',
   body: 'Up=Left Down=Right'

@@ -4,7 +4,7 @@
         ""
     ],
     "companyName": "andy.mcguigan@me.com",
-    "longName": "WebSockets",
+    "longName": "CYF",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -31,7 +31,7 @@
             }
         ]
     },
-    "shortName": "WebSockets",
+    "shortName": "CYF",
     "uuid": "47e72a06-eb77-423e-8839-e6927bd6a9cf",
     "versionCode": 1,
     "versionLabel": "1.0",
