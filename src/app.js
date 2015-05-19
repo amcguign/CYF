@@ -27,6 +27,7 @@ ws.onmessage = function (event) {
 };
 
 var reg_message = {};
+var registered_hand;
 
 var main = new UI.Card({
   title: 'CYF',
@@ -36,26 +37,30 @@ var main = new UI.Card({
 });
 main.show();
 
-/*
-main.on('click', 'select', function(e) {
-  var wind = new UI.Window();
-  var textfield = new UI.Text({
-    position: new Vector2(0, 50),
-    size: new Vector2(144, 30),
-    font: 'gothic-24-bold',
-    text: 'Text Anywhere!',
-    textAlign: 'center'
-  });
-  wind.add(textfield);
-  wind.show();
-});
-*/
+function send_registration_message() {
+    var msg = {'register':registered_hand};
+    ws.send(JSON.stringify(msg));
+}
+
+function send_unregistration_message() {
+    var msg = {'unregister':registered_hand};
+    ws.send(JSON.stringify(msg));
+}
+
+function unregister() {
+    send_unregistration_message();
+    registered_hand = null;
+}
 
 main.on('click', 'up', function(e) {
   var card = new UI.Card();
   card.title('I am Left.');
-  reg_message.register = "left";  
-  ws.send(JSON.stringify(reg_message));    
+  registered_hand = 'left';
+  send_registration_message();
+    card.on('click', 'back', function(e) {
+        unregister();
+        card.hide();
+    });
   card.body('Waiting for instructions...');
   card.show();
 });
@@ -63,8 +68,12 @@ main.on('click', 'up', function(e) {
 main.on('click', 'down', function(e) {
   var card = new UI.Card();
   card.title('I am Right');
-  reg_message.register = "right";  
-  ws.send(JSON.stringify(reg_message));
+  registered_hand = 'right';
+  send_registration_message();
+    card.on('click', 'back', function(e) {
+        unregister();
+        card.hide();
+    });
   card.body('Waiting for instructions...');
   card.show();
 });
