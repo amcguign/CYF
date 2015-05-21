@@ -16,7 +16,7 @@ ws.onmessage = function (event) {
     card.title('Data from server');
     card.body(event.data);
     card.show();
-    if (message.direction == "forward")
+    if (message.move == "forward")
     {
         Vibe.vibrate('double');            
     }
